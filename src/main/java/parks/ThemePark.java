@@ -2,49 +2,55 @@ package parks;
 
 import attractions.*;
 import behaviours.IReviewed;
-import org.w3c.dom.Attr;
+import behaviours.ISecurity;
 import people.Visitor;
-import stalls.CandyflossStall;
-import stalls.IceCreamStall;
-import stalls.TobaccoStall;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ThemePark {
 
-    Dodgems dodgems;
-    Park park;
-    Playground playground;
-    RollerCoaster rollerCoaster;
-    CandyflossStall candyflossStall;
-    IceCreamStall iceCreamStall;
-    TobaccoStall tobaccoStall;
 
-    public ThemePark(Dodgems dodgems, Park park, Playground playground, RollerCoaster rollerCoaster, CandyflossStall candyflossStall, IceCreamStall iceCreamStall, TobaccoStall tobaccoStall){
-        this.dodgems = dodgems;
-        this.park = park;
-        this.playground = playground;
-        this.rollerCoaster = rollerCoaster;
-        this.candyflossStall = candyflossStall;
-        this.iceCreamStall = iceCreamStall;
-        this.tobaccoStall = tobaccoStall;
+    private ArrayList<IReviewed> reviews;
+
+    public ThemePark(){
+        reviews = new ArrayList<>();
+    }
+
+    public void addAttraction(IReviewed review){
+        reviews.add(review);
     }
 
 
     public ArrayList<IReviewed> getAllReviews() {
-        ArrayList<IReviewed> allReviews = new ArrayList<>();
-        allReviews.add(dodgems);
-        allReviews.add(park);
-        allReviews.add(playground);
-        allReviews.add(rollerCoaster);
-        allReviews.add(candyflossStall);
-        allReviews.add(iceCreamStall);
-        allReviews.add(tobaccoStall);
-        return allReviews;
+        return reviews;
     }
 
     public void visit(Visitor visitor, Attraction attraction) {
         visitor.addVisitedAttractions(attraction);
         attraction.increaseVisitCount();
     }
+
+    public HashMap<String, Integer> reviewMap(){
+        HashMap<String, Integer> mapOfReviews =  new HashMap<>();
+        for (IReviewed reviewed : this.getAllReviews()){
+            mapOfReviews.put(reviewed.getName(), reviewed.getRating());
+        }
+        return mapOfReviews;
+    }
+
+    public ArrayList<IReviewed> getAllAllowedFor(Visitor visitor){
+        ArrayList<IReviewed> isAllowed = new ArrayList<>();
+        for (IReviewed reviewed : this.reviews){
+            if (reviewed instanceof ISecurity){
+                if (((ISecurity) reviewed).isAllowedTo(visitor)){
+                    isAllowed.add(reviewed);
+                }
+            } else {
+                isAllowed.add(reviewed);
+            }
+        }
+        return isAllowed;
+    }
+
+
 }

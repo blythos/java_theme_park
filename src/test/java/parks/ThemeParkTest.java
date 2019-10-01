@@ -16,6 +16,7 @@ import stalls.TobaccoStall;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class ThemeParkTest {
 
@@ -34,7 +35,7 @@ public class ThemeParkTest {
 
     @Before
     public void before(){
-        themePark = new ThemePark(dodgems, park, playground, rollerCoaster, candyflossStall, iceCreamStall, tobaccoStall);
+        themePark = new ThemePark();
 
         dodgems = new Dodgems("Bumper Cars", 5);
         park = new Park("Leafy Meadows", 9);
@@ -45,6 +46,15 @@ public class ThemeParkTest {
         tobaccoStall = new TobaccoStall("Jacks Drum", "Jack Jarvis", ParkingSpot.B1, 7);
 
         visitor = new Visitor(45,320, 30000);
+
+        themePark.addAttraction(dodgems);
+        themePark.addAttraction(park);
+        themePark.addAttraction(playground);
+        themePark.addAttraction(rollerCoaster);
+        themePark.addAttraction(candyflossStall);
+        themePark.addAttraction(iceCreamStall);
+        themePark.addAttraction(tobaccoStall);
+
     }
 
     @Test
@@ -60,7 +70,16 @@ public class ThemeParkTest {
         assertEquals(1, dodgems.getVisitCount());
     }
 
-    
+    @Test
+    public void reviewsMapHasEntries(){
+        assertFalse(themePark.reviewMap().isEmpty());
+    }
+
+    @Test
+    public void customerIsAllowedOnAll(){
+        assertEquals(6, themePark.getAllAllowedFor(visitor).size());
+    }
+
 
 
 
