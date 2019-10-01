@@ -54,10 +54,18 @@ public class RollercoasterTest {
     }
 
     @Test
-    public void visitorIsNotAllowed(){
-        Visitor son = new Visitor(10, 134, 30);
+    public void visitorIsNotAllowed__tooYoung(){
+        Visitor son = new Visitor(10, 147, 30);
         assertFalse(rollerCoaster.isAllowedTo(son));
     }
 
+    @Test
+    public void visitorIsNotAllowed__tooShort(){
+        Visitor son2 = new Visitor(17, 120, 30);
+        assertFalse(rollerCoaster.isAllowedTo(son2));
+    }
+
     
+
+
 }
