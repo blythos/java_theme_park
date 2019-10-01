@@ -7,6 +7,7 @@ import attractions.RollerCoaster;
 import behaviours.IReviewed;
 import org.junit.Before;
 import org.junit.Test;
+import people.Visitor;
 import stalls.CandyflossStall;
 import stalls.IceCreamStall;
 import stalls.ParkingSpot;
@@ -28,10 +29,13 @@ public class ThemeParkTest {
     IceCreamStall iceCreamStall;
     TobaccoStall tobaccoStall;
 
+    Visitor visitor;
+
 
     @Before
     public void before(){
         themePark = new ThemePark(dodgems, park, playground, rollerCoaster, candyflossStall, iceCreamStall, tobaccoStall);
+
         dodgems = new Dodgems("Bumper Cars", 5);
         park = new Park("Leafy Meadows", 9);
         playground = new Playground("Fun Zone", 7);
@@ -39,6 +43,8 @@ public class ThemeParkTest {
         candyflossStall = new CandyflossStall("Candy Land", "Harry Belafonte", ParkingSpot.A1, 5);
         iceCreamStall = new IceCreamStall("Dream Cones", "Vanilla Ice", ParkingSpot.A4, 5);
         tobaccoStall = new TobaccoStall("Jacks Drum", "Jack Jarvis", ParkingSpot.B1, 7);
+
+        visitor = new Visitor(45,320, 30000);
     }
 
     @Test
@@ -46,6 +52,15 @@ public class ThemeParkTest {
         ArrayList<IReviewed> allReviews = themePark.getAllReviews();
         assertEquals(7, allReviews.size());
     }
+
+    @Test
+    public void visitorCanVisit(){
+        themePark.visit(visitor, dodgems);
+        assertEquals(1, visitor.visitedAttractionsLength());
+        assertEquals(1, dodgems.getVisitCount());
+    }
+
+    
 
 
 

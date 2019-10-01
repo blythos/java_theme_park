@@ -1,10 +1,9 @@
 package parks;
 
-import attractions.Dodgems;
-import attractions.Park;
-import attractions.Playground;
-import attractions.RollerCoaster;
+import attractions.*;
 import behaviours.IReviewed;
+import org.w3c.dom.Attr;
+import people.Visitor;
 import stalls.CandyflossStall;
 import stalls.IceCreamStall;
 import stalls.TobaccoStall;
@@ -42,5 +41,10 @@ public class ThemePark {
         allReviews.add(iceCreamStall);
         allReviews.add(tobaccoStall);
         return allReviews;
+    }
+
+    public void visit(Visitor visitor, Attraction attraction) {
+        visitor.addVisitedAttractions(attraction);
+        attraction.increaseVisitCount();
     }
 }
