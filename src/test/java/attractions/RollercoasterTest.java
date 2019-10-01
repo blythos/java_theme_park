@@ -38,13 +38,13 @@ public class RollercoasterTest {
     @Test
     public void canChargeVisitor__short(){
         Visitor shorty = new Visitor(25, 165, 300);
-        assertEquals(8.40, rollerCoaster.pricefor(shorty), 0);
+        assertEquals(8.40, rollerCoaster.priceFor(shorty), 0);
     }
 
     @Test
     public void canChargeVisitor_tall(){
         Visitor tallBoi = new Visitor(34, 230, 300);
-        assertEquals(16.80, rollerCoaster.pricefor(tallBoi), 0);
+        assertEquals(16.80, rollerCoaster.priceFor(tallBoi), 0);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class RollercoasterTest {
         assertFalse(rollerCoaster.isAllowedTo(son2));
     }
 
-    
+
 
 
 }
